@@ -28,7 +28,7 @@ public class CustomreService {
         return customerRepository.findById(id).orElseThrow(()->new Exception("RECORD_NOT_FOUND"));
     }
 
-    @Transactional
+
     public Customer add(AddCustomer addCustomer) throws  Exception{
         Customer customer=new Customer();
         customer.setCreateDate(new Date());
