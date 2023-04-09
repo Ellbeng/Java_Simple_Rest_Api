@@ -30,7 +30,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = {"application/json"})
     public Customer add(@RequestBody AddCustomer addCustomer) throws Exception{
-        GeneralUtils.checkRequiredProperties(addCustomer, Arrays.asList("firstName","lasttName","addressId"));
+        GeneralUtils.checkRequiredProperties(addCustomer, Arrays.asList("firstName","lastName","addressId"));
         return customreService.add(addCustomer);
     }
 
