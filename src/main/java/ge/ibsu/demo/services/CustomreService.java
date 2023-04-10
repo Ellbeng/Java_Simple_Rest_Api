@@ -2,13 +2,20 @@ package ge.ibsu.demo.services;
 
 
 import ge.ibsu.demo.dto.AddCustomer;
+import ge.ibsu.demo.dto.SearchCustomer;
+import ge.ibsu.demo.dto.request.Paging;
 import ge.ibsu.demo.entities.Address;
 import ge.ibsu.demo.entities.Customer;
 import ge.ibsu.demo.repositories.CustomerRepository;
 import ge.ibsu.demo.utils.GeneralUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Date;
 import java.util.List;
@@ -56,4 +63,14 @@ public class CustomreService {
         return customerRepository.save(customer);
     }
 
+
+    public Slice<Customer> search(SearchCustomer searchCustomer, Paging paging){
+        String searchText=null;
+        if(searchCustomer.getName()!=null && !searchCustomer.equals("")){
+            searchText="%"+ searchCustomer.getName()+"%";
+        }
+        Pageable pageable= PageRequest.of(paging.getPage(),paging.getSize(), Sort.by("createDate").descending());
+        return customerRepository.search(searchCustomer.getActive(),searchText,pageable);
+
+    }
 }

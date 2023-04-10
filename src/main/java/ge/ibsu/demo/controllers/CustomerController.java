@@ -1,11 +1,14 @@
 package ge.ibsu.demo.controllers;
 
 import ge.ibsu.demo.dto.AddCustomer;
+import ge.ibsu.demo.dto.SearchCustomer;
+import ge.ibsu.demo.dto.request.RequestData;
 import ge.ibsu.demo.entities.Customer;
 import ge.ibsu.demo.repositories.CustomerRepository;
 import ge.ibsu.demo.services.CustomreService;
 import ge.ibsu.demo.utils.GeneralUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -39,4 +42,11 @@ public class CustomerController {
         GeneralUtils.checkRequiredProperties(addCustomer, Arrays.asList("firstName","lastName","addressId"));
         return customreService.edit(id, addCustomer);
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST, produces = {"application/json"})
+    public Slice<Customer> search(@RequestBody RequestData <SearchCustomer> rd) throws Exception{
+
+        return customreService.search(rd.getData(),rd.getPaging());
+    }
+
 }
