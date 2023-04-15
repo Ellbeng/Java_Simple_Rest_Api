@@ -19,7 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 //    nativeQuery = true)
 //    Slice<Customer> search(@Param("active") Integer active, @Param("searchText") String searchText,Pageable pageable);
 
-    @Query("From Customer where active = :active and " +"(:searchText is null or concat(firstName, concat(' ',lastName)) like :searchText)")
-    Slice<Customer> search(@Param("active") Integer active, @Param("searchText") String searchText, Pageable pageable);
+    @Query("From Customer where active = :active and " +"(:searchText is null or concat(firstName, concat(' ',lastName)) like :searchText) and email like :email")
+    Slice<Customer> search(@Param("active") Integer active, @Param("searchText") String searchText,@Param("email") String email, Pageable pageable);
 
 }

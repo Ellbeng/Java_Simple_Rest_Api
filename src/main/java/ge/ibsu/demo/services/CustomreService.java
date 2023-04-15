@@ -66,11 +66,15 @@ public class CustomreService {
 
     public Slice<Customer> search(SearchCustomer searchCustomer, Paging paging){
         String searchText=null;
+        String email=null;
         if(searchCustomer.getName()!=null && !searchCustomer.equals("")){
             searchText="%"+ searchCustomer.getName()+"%";
         }
+        if(searchCustomer.getEmail()!=null && !searchCustomer.equals("")){
+            email="%"+ searchCustomer.getEmail()+"%";
+        }
         Pageable pageable= PageRequest.of(paging.getPage(),paging.getSize(), Sort.by("createDate").descending());
-        return customerRepository.search(searchCustomer.getActive(),searchText,pageable);
+        return customerRepository.search(searchCustomer.getActive(),searchText,email,pageable);
 
     }
 }

@@ -6,6 +6,7 @@ public class AddCustomer {
     private String middleName;
     private Integer active;
     private Long addressId;
+    private String email;
 
     public String getFirstName() {
         return firstName;
@@ -45,5 +46,13 @@ public class AddCustomer {
 
     public void setAddressId(Long addressId) {
         this.addressId = addressId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
